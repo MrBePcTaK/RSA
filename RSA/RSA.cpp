@@ -1,20 +1,46 @@
-// RSA.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+﻿#include <iostream>
+#include <fstream>
 
-#include <iostream>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    // Выделение памяти под строку названия файла
+    char* fname = new char[255];
+    cout << "Enter input file name: ";
+    cin.getline(fname, 255);
+
+    // Открытие файлов для считывания и записи
+    ifstream ist(fname);
+    ofstream ost("out.txt");
+
+    // Если файл не был найден, то программа сообщит об этом и завершится с ошибкой -1
+    if (!ist.is_open()) {
+        cout << "File \"" << fname << "\" not found!\n";
+        return -1;
+    }
+
+    // Построчное считывание файла и его обработка
+    char text[255];
+    int k = 0;
+    while (ist.getline(text, 255)) {
+        // функция обработки символов
+        ost << endl;
+        k++;
+    }
+
+    // Закрытие файлов
+    ist.close();
+    ost.close();
+
+
+    // Если в файле не было строк, то выводит сообщение об ошибке
+    if (k == 0) {
+        cout << "File \"" << fname << "\" is empty" << endl;
+    }
+    else {
+        cout << "File \"out.txt\" is ready" << endl;
+    }
+    return 0;
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
